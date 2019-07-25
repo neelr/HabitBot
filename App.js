@@ -9,6 +9,7 @@ const colors = {
 	secondary: "#08090A",
 	third: "#F4FAFF"
 }
+x = 1
 class Home extends React.Component {
 	static navigationOptions = {
 		title: "Home"
@@ -54,8 +55,8 @@ class Chat extends React.Component {
 		this.setState({
 			messages: [
 				{
+					_id:1,
 					text: 'ik you are addicted',
-					createdAt: new Date(),
 					user: {
 						_id: 2,
 						name: 'AdicBot',
@@ -67,12 +68,13 @@ class Chat extends React.Component {
 	}
 
 	onSend(messages = []) {
+		messages[0].createdAt = null;
 		this.setState(previousState => ({
 			messages: GiftedChat.append(previousState.messages, messages),
 		}))
 		botmes = [{
+			_id:x,
 			text:"YO I DONT KNOW WHAT YOU ARE SAYING IDIOT",
-			createdAt: new Date(),
 			user: {
 				_id: 2,
 				name: 'AdicBot',
@@ -83,8 +85,8 @@ class Chat extends React.Component {
 			messages: GiftedChat.append(previousState.messages, botmes),
 		}))
 		console.log(messages)
+		x++;
 	}
-
 	render() {
 		return (
 			<GiftedChat
