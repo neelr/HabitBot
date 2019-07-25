@@ -1,0 +1,1 @@
+{"classifier":{"classFeatures":{"LIVE":{"0":2,"1":2},"sucicial":{"0":2,"2":2}},"classTotals":{"LIVE":2,"sucicial":2},"totalExamples":3,"smoothing":1},"docs":[{"label":"LIVE","text":["want","live"]},{"label":"sucicial","text":["want","die"]}],"features":{"want":2,"live":1,"die":1},"stemmer":{},"lastAdded":2,"events":{"_events":{},"_eventsCount":0}}
