@@ -5,10 +5,10 @@ const app = express();
 app.use(bodyparser.json())
 var botClass;
 
-natural.BayesClassifier.load("classifier.json",null,(err,classifier) => {
+natural.BayesClassifier.load("./classifier.json",null,(err,classifier) => {
     console.log("Loaded Classifier");
     botClass = classifier
-    console.log(classifier.getClassifications("asassa"))
+    console.log(classifier.getClassifications("I want to do better"))
 })
 
 app.post("/comp",(req,res)=> {
