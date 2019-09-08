@@ -4,7 +4,7 @@
   "description": "Name is bad but is a chat that  people use when addicted",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "run": "node server.js",
     "build": "node build.js"
   },
   "repository": {
