@@ -3,6 +3,7 @@ var natural = require("natural");
 var bodyparser = require("body-parser");
 const app = express();
 app.use(bodyparser.json())
+app.set('view engine', 'ejs');
 var botClass;
 
 natural.BayesClassifier.load("./classifier.json",null,(err,classifier) => {
@@ -12,11 +13,22 @@ natural.BayesClassifier.load("./classifier.json",null,(err,classifier) => {
 })
 
 app.post("/comp",(req,res)=> {
-    console.log(req.body.message)
-    res.send(botClass.getClassifications(req.body.message));
+    var classification = botClass.getClassifications(req.body.message);
+    var response = {}
+    switch (classification[0].label) {
+      case "leave":  response = {response:"Bye! See you later!"}; break;
+      case "improve":   response = {response:"Wow thats great!"}; break;
+      case "no-improve":   response = {response:"IMPROVE IDIOT"}; break;
+      case "greet":   response = {response:"Hi!"}; break;
+      case "sentient":   response = {response:"Yes. I am an omnipotent being."}; break;
+    }
+  
+    console.log(response,classification[0].label);
+    res.send(response);
+    res.end();
 });
 app.get("/",(req,res)=> {
-    res.send("Adic Bot is online!");
+    res.render('index');
 });
 app.listen(3000,(err) => {
     console.log("AdicBot Listening on 3000")
