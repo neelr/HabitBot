@@ -2,18 +2,14 @@ import React from 'react';
 import {AsyncStorage, ScrollView, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Icon } from "react-native-elements";
-import { GiftedChat } from 'react-native-gifted-chat';
+import InputToolbar from "./components/Bar";
+import { GiftedChat ,Bubble} from 'react-native-gifted-chat';
 const colors = {
-	main: "#8789C0",
+	main: "#4f5257",
 	text: "#D2CBCB",
 	secondary: "#08090A",
 	third: "#F4FAFF"
 }
-
-async function clear () {
-	await AsyncStorage.clear();
-}
-clear();
 class Home extends React.Component {
 	static navigationOptions = {
 		title: "Home"
@@ -48,6 +44,23 @@ class Help extends React.Component {
 	}
 }
 class Chat extends React.Component {
+	renderInputToolbar (props) {
+		return(
+			<InputToolbar {...props}/>
+		)
+	}
+	renderBubble(props) { 
+		return ( <Bubble {...props} 
+		wrapperStyle={{
+			left: {
+			  backgroundColor: 'white',
+			},
+			right: {
+			  backgroundColor: '#121213'
+			}
+		  }} />
+		)
+	}
 	ID () {
 		return '_' + Math.random().toString(36).substr(2, 9);
 	}
@@ -124,6 +137,13 @@ class Chat extends React.Component {
 				user={{
 					_id: 1,
 				}}
+				renderBubble={this.renderBubble.bind(this.renderBubble)}
+				listViewProps={{
+					style: {
+					  backgroundColor: colors.main,
+					},
+				  }}
+				  renderInputToolbar={this.renderInputToolbar}
 			/>
 		)
 	}
@@ -168,10 +188,10 @@ const styles = StyleSheet.create({
 	}, button: {
 		margin: 15,
 		padding: 10,
-		backgroundColor: colors.secondary,
+		backgroundColor: "transparent",
+		borderColor:"white",
 		overflow: "hidden",
-		borderWidth: 0,
-		borderRadius: 12,
+		borderWidth: 2,
 		textAlign: "center",
 		color: colors.third
 	},
