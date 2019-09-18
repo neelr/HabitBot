@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, View, Keyboard, ViewPropTypes, } from 'react-native';
-import {Composer, Send,Actions,Color} from 'react-native-gifted-chat';
+import {Composer, Send,Actions} from 'react-native-gifted-chat';
 const styles = StyleSheet.create({
     container: {
         borderTopWidth: 0,
@@ -14,9 +14,11 @@ const styles = StyleSheet.create({
     primary: {
         flexDirection: 'row',
         alignItems: 'flex-end',
+        color:"white"
     },
     accessory: {
         height: 44,
+        color:"white"
     },
 });
 export default class InputToolbar extends React.Component {
@@ -60,7 +62,7 @@ export default class InputToolbar extends React.Component {
             return this.props.renderActions(props);
         }
         else if (this.props.onPressActionButton) {
-            return <Actions {...props}/>;
+            return <Actions  {...props}/>;
         }
         return null;
     }
@@ -68,7 +70,7 @@ export default class InputToolbar extends React.Component {
         if (this.props.renderSend) {
             return this.props.renderSend(this.props);
         }
-        return <Send {...this.props}/>;
+        return <Send style={{color:"white"}} {...this.props}/>;
     }
     renderComposer() {
         if (this.props.renderComposer) {
