@@ -1,9 +1,10 @@
 import React from 'react';
-import {AsyncStorage, ScrollView, StyleSheet, Text, View, TouchableOpacity, TextInput } from 'react-native';
+import {AsyncStorage, ScrollView, StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard,KeyboardAvoidingView } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { Icon } from "react-native-elements";
 import InputToolbar from "./components/Bar";
 import { GiftedChat ,Bubble} from 'react-native-gifted-chat';
+import { Grid, LineChart, YAxis } from 'react-native-svg-charts';
+
 const colors = {
 	main: "#4f5257",
 	text: "#D2CBCB",
@@ -26,6 +27,9 @@ class Home extends React.Component {
 				</TouchableOpacity>
 				<TouchableOpacity style={{ width: "75%" }} onPress={() => this.props.navigation.navigate("Settings")}>
 					<Text style={styles.button}>Settings</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={{ width: "75%" }} onPress={() => this.props.navigation.navigate("AdicGraph")}>
+					<Text style={styles.button}>Adic Graph</Text>
 				</TouchableOpacity>
 			</View>
 		);
@@ -161,12 +165,95 @@ class Settings extends React.Component {
 	}
 }
 
+/*class Progress extends React.Component{
+	state = {
+		data:[]
+	}
+	static navigationOptions = {
+		title : "Progress"
+	}
+	render(){
+		return(
+			<View style={style.container}>
+				<ProgressCircle
+					style = {{height: 200, backgroundColorL "black"}}
+					data = {this.state.data}
+					
+				/>		
+			</View>
+		);
+	}
+}*/
+class AdicGraph extends React.Component{ 
+	state = {
+		data:[],
+		text:""
+	}
+	static navigationOptions = {
+		title: "AdicGraph"
+	}
+	render(){
+		return(
+			<KeyboardAvoidingView style={styles.ontainer}>
+				<Text style={styles.title}>Adiction Levels</Text>
+				<ScrollView contentContainerStyle={{display:"flex",margin:10,alignItems:"center"}}>
+					<Text style={{color:colors.text,margin:3}}>Please enter your adiction level (relative)</Text>
+					<TextInput returnKeyType='done' enablesReturnKeyAutomatically={true} onSubmitEditing={() => this.onClick()} style={{margin:"auto"}} value={this.state.text} keyboardType="numeric" onChangeText = {(text)=> this.setState({text:text})}  placeholder="Enter a number" editable style={styles.input}></TextInput>
+					<TouchableOpacity onPress={() => this.reset()}>
+						<Text style={styles.button}>Reset</Text>
+					</TouchableOpacity>
+			</ScrollView>
+				<View style={{ height: 200, padding: 5, flexDirection: 'row' }}>
+					<YAxis
+						data={this.state.data}
+			
+						contentInset={{ top: 20, bottom: 20 }}
+						svg={{ fontSize: 10, fill: 'white' }}
+						numberOfTicks={5}
+					/>
+					<View style={{ flex: 1, marginLeft: 10 }}>
+						<LineChart
+							style={{flex:1}}
+							data={this.state.data}
+							svg={{ stroke: 'rgb(134, 65, 244)' }}
+							contentInset={{ top: 20, bottom: 20 }}
+						>
+							<Grid />
+						</LineChart>
+					</View>
+				</View>
+			</KeyboardAvoidingView>
+		);
+	}
+	onClick () {
+		if (!isNaN(this.state.text)) {
+			var buff = this.state.data;
+			buff.push(parseInt(this.state.text));
+			this.setState({data:buff});
+			AsyncStorage.setItem("data",JSON.stringify(this.state.data));
+		}
+		this.setState({text:""})
+		Keyboard.dismiss();
+	}
+	reset () {
+		this.setState({data:[]})
+	}
+	async componentWillMount () {
+		var dat = JSON.parse(await AsyncStorage.getItem("data"));
+		if (dat) {
+			this.setState({data:dat});
+		} else {
+			this.setState({data:[]});
+		}
+	}
+}
 const StackNav = createStackNavigator(
 	{
 		Home: Home,
 		Chat: Chat,
 		Help: Help,
-		Settings: Settings
+		Settings: Settings,
+		AdicGraph:AdicGraph
 	},
 	{
 		initialRouteName: "Home"
@@ -185,6 +272,12 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.main,
 		alignItems: 'center',
 		color: colors.third
+	},
+	ontainer: {
+		flex: 1,
+		backgroundColor: colors.main,
+		color: colors.third,
+		display:"flex"
 	}, button: {
 		margin: 15,
 		padding: 10,
@@ -206,11 +299,11 @@ const styles = StyleSheet.create({
 		padding: 8,
 		margin: 5
 	}, input: {
-		height: "50%",
+		height: 30,
 		backgroundColor: colors.third,
 		borderRadius: 30,
 		width: "70%",
-		justifyContent: "flex-start"
+		padding:5
 	},
 	chatboxl: {
 		justifyContent: "flex-start",
