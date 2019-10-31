@@ -42,11 +42,11 @@ export default class Chat extends React.Component {
 					messages: [
 						{
 							_id: this.ID(),
-							text: 'Hi! Im an Adiction Bot!',
+							text: "Hi! I'm an adiction chatbot to help you throughout the process! Feel free to talk to me and say hi!",
 							user: {
 								_id: 2,
-								name: 'AdicBot',
-								avatar: 'http://michaelkonik.com/wp-content/uploads/2010/11/no20drugs1.jpg',
+								name: 'HabitBot',
+								avatar: 'https://cdn.glitch.com/6bafb8e5-2b46-482f-9eea-969f482187f4%2Flogo.png?v=1572494705978',
 							},
 						},
 					],
@@ -61,7 +61,7 @@ export default class Chat extends React.Component {
 		this.setState(previousState => ({
 			messages: GiftedChat.append(previousState.messages, messages),
 		}))
-		fetch("https://adicbot.glitch.me/comp", {
+		fetch("https://habitbot.glitch.me/comp", {
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -80,8 +80,8 @@ export default class Chat extends React.Component {
 							text: res.response,
 							user: {
 								_id: 2,
-								name: 'AdicBot',
-								avatar: 'http://michaelkonik.com/wp-content/uploads/2010/11/no20drugs1.jpg',
+								name: 'HabitBot',
+								avatar: 'https://cdn.glitch.com/6bafb8e5-2b46-482f-9eea-969f482187f4%2Flogo.png?v=1572494705978',
 							},
 						},
 					]),

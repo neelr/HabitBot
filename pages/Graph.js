@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, LineChart, YAxis } from 'react-native-svg-charts';
 import { Text, View, ScrollView, TextInput, KeyboardAvoidingView, Keyboard, AsyncStorage, TouchableOpacity } from "react-native";
 import {styles,colors} from "../components/Theme"
+import { vw, vh } from 'react-native-expo-viewport-units';
 
 export default class Graph extends React.Component {
 	state = {
@@ -9,7 +10,7 @@ export default class Graph extends React.Component {
 		text: ""
 	}
 	static navigationOptions = {
-		title: "AdicGraph"
+		title: "Graph"
 	}
 	render() {
 		return (
@@ -22,7 +23,7 @@ export default class Graph extends React.Component {
 						<Text style={styles.button}>Reset</Text>
 					</TouchableOpacity>
 				</ScrollView>
-				<View style={{ height: 200, padding: 5, flexDirection: 'row' }}>
+				<View style={{ height: vh(50), padding: vw(2), flexDirection: 'row' }}>
 					<YAxis
 						data={this.state.data}
 

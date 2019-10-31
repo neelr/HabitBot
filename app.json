@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "AdicBot",
-    "slug": "AdicBots",
+    "name": "HabitBot",
+    "slug": "habitbot",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": [
@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier":"habitbot"
+    },
+    "android": {
+      "package": "com.enenra.habitbot"
     }
   }
 }
