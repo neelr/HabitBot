@@ -1,5 +1,5 @@
-# AnonChat
-Name is bad but is a chat that, people use when addicted
+# HabitBot
+An app that helps people who are adicted!
 
 ## Features
 * cross platform for mobile
